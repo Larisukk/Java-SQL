@@ -1,0 +1,43 @@
+create table componente
+(
+    idc     char(10)     not null
+        primary key,
+    numec   varchar(100) not null,
+    culoare varchar(50)  null,
+    masa    int          not null,
+    oras    varchar(100) not null
+);
+
+create table furnizori
+(
+    idf   char(10)     not null
+        primary key,
+    numef varchar(100) not null,
+    stare int          not null,
+    oras  varchar(100) not null
+);
+
+create table proiecte
+(
+    idp   char(10)     not null
+        primary key,
+    numep varchar(100) not null,
+    oras  varchar(100) not null
+);
+
+create table livrari
+(
+    idf       char(10)    not null,
+    idc       char(10)    not null,
+    idp       char(10)    not null,
+    cantitate int         not null,
+    um        varchar(50) not null,
+    primary key (idf, idc, idp),
+    constraint fk_livrari_componente
+        foreign key (idc) references componente (idc),
+    constraint fk_livrari_furnizori
+        foreign key (idf) references furnizori (idf),
+    constraint fk_livrari_proiecte
+        foreign key (idp) references proiecte (idp)
+);
+
